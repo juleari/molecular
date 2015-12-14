@@ -124,7 +124,7 @@ function render() {
 render();
 
 var ajax = function() {
-    var input = $('input').val() || "O=CO";
+    var input = $('select').val() || "O=CO";
       
     $.ajax({
         url: '/mol2',
@@ -132,7 +132,9 @@ var ajax = function() {
         data: {name: input},
         success: function(a) {
             j = JSON.parse(a);
-            redraw(j)
+            redraw(j);
+            $('.current').html( input );
+            $('input').val("");
             console.log('success', j, arguments); 
         },
         error: function() {
@@ -143,4 +145,4 @@ var ajax = function() {
 
 ajax()
 
-$(document).on('click', '.button', ajax);
+$(document).on('change', 'select', ajax);
